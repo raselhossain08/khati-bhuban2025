@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import { blogPosts } from "./blogPosts";
+import { motion } from "framer-motion";
 import {
   Search,
   Filter,
@@ -12,30 +13,34 @@ import {
   MessageCircle,
   BookOpen,
   Calendar,
-  Tag
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+  Tag,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function BlogClient() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [sortBy, setSortBy] = useState('latest');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("latest");
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.content.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
-    
+  const filteredPosts = blogPosts.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || post.category === selectedCategory;
+
     return matchesSearch && matchesCategory;
   });
 
   // Sort posts
   const sortedPosts = [...filteredPosts].sort((a, b) => {
-    if (sortBy === 'latest') {
-      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-    } else if (sortBy === 'popular') {
+    if (sortBy === "latest") {
+      return (
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+      );
+    } else if (sortBy === "popular") {
       return b.views - a.views;
     }
     return 0;
@@ -85,7 +90,8 @@ export function BlogClient() {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="text-2xl md:text-3xl font-bengali text-slate-700 mb-6 leading-relaxed"
               >
-                স্বাস্থ্য টিপস ও <span className="text-amber-600">প্রাকৃতিক উপকারিতা</span>
+                স্বাস্থ্য টিপস ও{" "}
+                <span className="text-amber-600">প্রাকৃতিক উপকারিতা</span>
               </motion.h2>
 
               <motion.p
@@ -94,9 +100,9 @@ export function BlogClient() {
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="text-lg text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto"
               >
-                Discover the amazing benefits of pure honey, natural foods, and healthy 
-                lifestyle tips from our experts. Learn how to incorporate nature&apos;s 
-                goodness into your daily life.
+                Discover the amazing benefits of pure honey, natural foods, and
+                healthy lifestyle tips from our experts. Learn how to
+                incorporate nature&apos;s goodness into your daily life.
               </motion.p>
 
               <motion.p
@@ -105,9 +111,10 @@ export function BlogClient() {
                 transition={{ delay: 0.6, duration: 0.8 }}
                 className="text-slate-600 font-bengali mb-8 leading-relaxed max-w-3xl mx-auto"
               >
-                খাঁটি মধুর আশ্চর্যজনক উপকারিতা, প্রাকৃতিক খাদ্য এবং স্বাস্থ্যকর জীবনযাপনের 
-                টিপস আবিষ্কার করুন আমাদের বিশেষজ্ঞদের কাছ থেকে। শিখুন কিভাবে প্রকৃতির 
-                উপকারিতা আপনার দৈনন্দিন জীবনে অন্তর্ভুক্ত করতে হয়।
+                খাঁটি মধুর আশ্চর্যজনক উপকারিতা, প্রাকৃতিক খাদ্য এবং স্বাস্থ্যকর
+                জীবনযাপনের টিপস আবিষ্কার করুন আমাদের বিশেষজ্ঞদের কাছ থেকে। শিখুন
+                কিভাবে প্রকৃতির উপকারিতা আপনার দৈনন্দিন জীবনে অন্তর্ভুক্ত করতে
+                হয়।
               </motion.p>
             </motion.div>
           </div>
@@ -140,7 +147,7 @@ export function BlogClient() {
                 className="px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white"
               >
                 <option value="all">All Categories</option>
-                {categories.map(category => (
+                {categories.map((category) => (
                   <option key={category.value} value={category.value}>
                     {category.label}
                   </option>
@@ -220,7 +227,7 @@ export function BlogClient() {
                     <div className="flex items-center gap-4 text-sm text-slate-500">
                       <div className="flex items-center gap-1">
                         <Clock className="h-4 w-4" />
-                        {featuredPost.readTime}
+                        {/* {featuredPost.readTime} */}
                       </div>
                       <div className="flex items-center gap-1">
                         <Eye className="h-4 w-4" />
@@ -239,14 +246,19 @@ export function BlogClient() {
                         <User className="h-5 w-5 text-amber-600" />
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-900">{featuredPost.author}</div>
-                        <div className="text-sm text-slate-500">Expert Beekeeper</div>
+                        <div className="font-semibold text-slate-900">
+                          {featuredPost.author}
+                        </div>
+                        <div className="text-sm text-slate-500">
+                          Expert Beekeeper
+                        </div>
                       </div>
                     </div>
-                    <Button asChild className="bg-amber-600 hover:bg-amber-700 text-white">
-                      <Link href={`/blog/${featuredPost.slug}`}>
-                        Read More
-                      </Link>
+                    <Button
+                      asChild
+                      className="bg-amber-600 hover:bg-amber-700 text-white"
+                    >
+                      <Link href={`/blog/${featuredPost.slug}`}>Read More</Link>
                     </Button>
                   </div>
                 </div>
@@ -270,7 +282,8 @@ export function BlogClient() {
               Latest <span className="text-gradient">Articles</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Explore our collection of informative articles about natural health and wellness
+              Explore our collection of informative articles about natural
+              health and wellness
             </p>
           </motion.div>
 
@@ -306,7 +319,7 @@ export function BlogClient() {
                       </div>
                       <div className="flex items-center gap-1 text-sm text-slate-500">
                         <Clock className="h-4 w-4" />
-                        {post.readTime}
+                        {/* {post.readTime} */}
                       </div>
                     </div>
 
@@ -342,10 +355,12 @@ export function BlogClient() {
 
                   {/* Read More Link */}
                   <div className="px-6 pb-6">
-                    <Button asChild variant="outline" className="w-full border-amber-200 text-amber-600 hover:bg-amber-50">
-                      <Link href={`/blog/${post.slug}`}>
-                        Read Article
-                      </Link>
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="w-full border-amber-200 text-amber-600 hover:bg-amber-50"
+                    >
+                      <Link href={`/blog/${post.slug}`}>Read Article</Link>
                     </Button>
                   </div>
                 </motion.article>
@@ -376,7 +391,11 @@ export function BlogClient() {
               viewport={{ once: true }}
               className="text-center mt-12"
             >
-              <Button variant="outline" size="lg" className="border-amber-600 text-amber-600 hover:bg-amber-50">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-amber-600 text-amber-600 hover:bg-amber-50"
+              >
                 Load More Articles
               </Button>
             </motion.div>
@@ -413,8 +432,8 @@ export function BlogClient() {
                 onClick={() => setSelectedCategory(category.value)}
                 className={`p-6 rounded-2xl border-2 transition-all duration-300 ${
                   selectedCategory === category.value
-                    ? 'border-amber-500 bg-amber-50 shadow-lg'
-                    : 'border-slate-200 bg-slate-50 hover:border-amber-300 hover:bg-amber-25'
+                    ? "border-amber-500 bg-amber-50 shadow-lg"
+                    : "border-slate-200 bg-slate-50 hover:border-amber-300 hover:bg-amber-25"
                 }`}
               >
                 <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-3">
@@ -446,25 +465,29 @@ export function BlogClient() {
               Stay Updated with Natural Health Tips
             </h2>
             <p className="text-amber-100 text-lg mb-8 leading-relaxed">
-              Get the latest articles, health tips, and exclusive offers delivered 
-              directly to your inbox. Join our community of health-conscious readers.
+              Get the latest articles, health tips, and exclusive offers
+              delivered directly to your inbox. Join our community of
+              health-conscious readers.
             </p>
             <p className="text-amber-100 font-bengali text-lg mb-8 leading-relaxed">
-              সর্বশেষ নিবন্ধ, স্বাস্থ্য টিপস এবং এক্সক্লুসিভ অফার সরাসরি আপনার ইনবক্সে পান। 
-              স্বাস্থ্য-সচেতন পাঠকদের আমাদের কমিউনিটিতে যোগ দিন।
+              সর্বশেষ নিবন্ধ, স্বাস্থ্য টিপস এবং এক্সক্লুসিভ অফার সরাসরি আপনার
+              ইনবক্সে পান। স্বাস্থ্য-সচেতন পাঠকদের আমাদের কমিউনিটিতে যোগ দিন।
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email address"
                 className="flex-1 px-4 py-3 rounded-xl border border-amber-500 bg-amber-500/20 text-white placeholder-amber-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
               />
-              <Button size="lg" className="bg-white text-amber-600 hover:bg-amber-50 px-8 font-semibold">
+              <Button
+                size="lg"
+                className="bg-white text-amber-600 hover:bg-amber-50 px-8 font-semibold"
+              >
                 Subscribe
               </Button>
             </div>
-            
+
             <p className="text-amber-200 text-sm mt-4">
               No spam ever. Unsubscribe at any time.
             </p>
@@ -478,116 +501,29 @@ export function BlogClient() {
 // Data
 const categories = [
   {
-    value: 'health-benefits',
-    label: 'Health Benefits',
+    value: "health-benefits",
+    label: "Health Benefits",
     count: 12,
-    icon: Heart
+    icon: Heart,
   },
   {
-    value: 'recipes',
-    label: 'Recipes',
+    value: "recipes",
+    label: "Recipes",
     count: 8,
-    icon: BookOpen
+    icon: BookOpen,
   },
   {
-    value: 'beekeeping',
-    label: 'Beekeeping',
+    value: "beekeeping",
+    label: "Beekeeping",
     count: 6,
-    icon: Tag
+    icon: Tag,
   },
   {
-    value: 'natural-foods',
-    label: 'Natural Foods',
+    value: "natural-foods",
+    label: "Natural Foods",
     count: 10,
-    icon: Filter
-  }
-];
-
-const blogPosts = [
-  {
-    id: '1',
-    slug: 'health-benefits-of-pure-honey',
-    title: '10 Amazing Health Benefits of Pure Honey You Need to Know',
-    excerpt: 'Discover the incredible health benefits of pure honey, from boosting immunity to improving digestion and skin health.',
-    content: 'Full article content here...',
-    category: 'health-benefits',
-    author: 'Dr. Fatima Ahmed',
-    publishedAt: '2024-01-15',
-    readTime: '5 min read',
-    views: 2543,
-    likes: 189,
-    tags: ['honey', 'health', 'immunity', 'digestion']
+    icon: Filter,
   },
-  {
-    id: '2',
-    slug: 'honey-recipes-for-winter',
-    title: '5 Delicious Honey Recipes to Keep You Warm This Winter',
-    excerpt: 'Warm up with these comforting honey-based recipes that are perfect for cold winter days and boost your immunity.',
-    content: 'Full article content here...',
-    category: 'recipes',
-    author: 'Chef Rahman',
-    publishedAt: '2024-01-12',
-    readTime: '7 min read',
-    views: 1876,
-    likes: 142,
-    tags: ['recipes', 'winter', 'cooking', 'immunity']
-  },
-  {
-    id: '3',
-    slug: 'beekeeping-sustainable-practice',
-    title: 'Sustainable Beekeeping: Protecting Our Environment',
-    excerpt: 'Learn how sustainable beekeeping practices help protect our environment and ensure the future of honey production.',
-    content: 'Full article content here...',
-    category: 'beekeeping',
-    author: 'Mohammad Ali',
-    publishedAt: '2024-01-10',
-    readTime: '8 min read',
-    views: 1321,
-    likes: 98,
-    tags: ['beekeeping', 'sustainability', 'environment']
-  },
-  {
-    id: '4',
-    slug: 'mustard-oil-benefits',
-    title: 'The Surprising Health Benefits of Cold-Pressed Mustard Oil',
-    excerpt: 'Discover why cold-pressed mustard oil is a superfood for your heart, skin, and overall health.',
-    content: 'Full article content here...',
-    category: 'natural-foods',
-    author: 'Dr. Sabrina Khan',
-    publishedAt: '2024-01-08',
-    readTime: '6 min read',
-    views: 2156,
-    likes: 167,
-    tags: ['mustard-oil', 'health', 'cooking', 'superfood']
-  },
-  {
-    id: '5',
-    slug: 'identify-pure-honey',
-    title: 'How to Identify 100% Pure Honey: A Complete Guide',
-    excerpt: 'Learn simple methods to distinguish pure honey from adulterated products and ensure you get the real benefits.',
-    content: 'Full article content here...',
-    category: 'health-benefits',
-    author: 'Dr. Fatima Ahmed',
-    publishedAt: '2024-01-05',
-    readTime: '4 min read',
-    views: 2987,
-    likes: 234,
-    tags: ['honey', 'purity', 'quality', 'tips']
-  },
-  {
-    id: '6',
-    slug: 'natural-remedies-cough',
-    title: 'Natural Honey Remedies for Cough and Cold Relief',
-    excerpt: 'Effective home remedies using honey to naturally relieve cough, cold, and respiratory issues.',
-    content: 'Full article content here...',
-    category: 'recipes',
-    author: 'Dr. Sabrina Khan',
-    publishedAt: '2024-01-03',
-    readTime: '5 min read',
-    views: 1765,
-    likes: 156,
-    tags: ['remedies', 'cough', 'cold', 'health']
-  }
 ];
 
 const featuredPost = blogPosts[0];

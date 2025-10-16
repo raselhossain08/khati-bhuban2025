@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 import {
   Leaf,
   Heart,
@@ -12,11 +12,14 @@ import {
   Sparkles,
   MapPin,
   Clock,
-  CheckCircle
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
+  CheckCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLanguageUtils } from "@/lib/useLanguageUtils";
 
 export function AboutClient() {
+  const { getText, getBanglaFontClass } = useLanguageUtils();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -42,8 +45,10 @@ export function AboutClient() {
                 className="inline-flex items-center px-4 py-2 rounded-full bg-amber-100 border border-amber-200 mb-6"
               >
                 <Sparkles className="h-4 w-4 text-amber-600 mr-2" />
-                <span className="text-sm font-medium text-amber-700">
-                  Since 2015
+                <span
+                  className={`text-sm font-medium text-amber-700 ${getBanglaFontClass()}`}
+                >
+                  {getText("Since 2015", "২০১৫ সাল থেকে")}
                 </span>
               </motion.div>
 
@@ -51,42 +56,25 @@ export function AboutClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight"
+                className={`text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight ${getBanglaFontClass()}`}
               >
-                Our Story of{' '}
-                <span className="text-gradient">Pure Goodness</span>
+                {getText("Our Story of", "খাঁটি ভুবনের গল্প")}{" "}
+                <span className="text-gradient">
+                  {getText("Pure Goodness", "প্রকৃতির বিশুদ্ধতা")}
+                </span>
+                {getText("", " এর যাত্রা")}
               </motion.h1>
-
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                className="text-2xl md:text-3xl font-bengali text-slate-700 mb-6 leading-relaxed"
-              >
-                খাঁটি ভুবনের গল্প -{' '}
-                <span className="text-amber-600">প্রকৃতির বিশুদ্ধতা</span> এর যাত্রা
-              </motion.h2>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-lg text-slate-600 mb-8 leading-relaxed"
+                className={`text-lg text-slate-600 mb-8 leading-relaxed ${getBanglaFontClass()}`}
               >
-                From the lush forests of Bhuban to your home, we bring you the purest 
-                natural products. Our journey began with a simple mission: to preserve 
-                nature&apos;s purity and share it with families across Bangladesh.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="text-slate-600 font-bengali mb-8 leading-relaxed"
-              >
-                ভুবনের সবুজ অরণ্য থেকে সরাসরি আপনার বাড়িতে, আমরা নিয়ে আসি প্রকৃতির সবচেয়ে খাঁটি পণ্য। 
-                আমাদের যাত্রা শুরু হয়েছিল একটি সহজ মিশন নিয়ে: প্রকৃতির বিশুদ্ধতা সংরক্ষণ করা 
-                এবং বাংলাদেশের পরিবারগুলির সাথে তা ভাগ করে নেওয়া।
+                {getText(
+                  "From the lush forests of Bhuban to your home, we bring you the purest natural products. Our journey began with a simple mission: to preserve nature's purity and share it with families across Bangladesh.",
+                  "ভুবনের সবুজ অরণ্য থেকে সরাসরি আপনার বাড়িতে, আমরা নিয়ে আসি প্রকৃতির সবচেয়ে খাঁটি পণ্য। আমাদের যাত্রা শুরু হয়েছিল একটি সহজ মিশন নিয়ে: প্রকৃতির বিশুদ্ধতা সংরক্ষণ করা এবং বাংলাদেশের পরিবারগুলির সাথে তা ভাগ করে নেওয়া।"
+                )}
               </motion.p>
 
               <motion.div
@@ -95,11 +83,18 @@ export function AboutClient() {
                 transition={{ delay: 0.7, duration: 0.8 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
-                <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg">
-                  Our Products
+                <Button
+                  size="lg"
+                  className={`bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg ${getBanglaFontClass()}`}
+                >
+                  {getText("Our Products", "আমাদের পণ্য")}
                 </Button>
-                <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-amber-600 text-amber-600 hover:bg-amber-50">
-                  Contact Us
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className={`px-8 py-3 text-lg border-amber-600 text-amber-600 hover:bg-amber-50 ${getBanglaFontClass()}`}
+                >
+                  {getText("Contact Us", "যোগাযোগ করুন")}
                 </Button>
               </motion.div>
             </motion.div>
@@ -121,7 +116,7 @@ export function AboutClient() {
                           <div className="w-64 h-4 bg-amber-200 rounded-full mx-auto"></div>
                         </div>
                       </div>
-                      
+
                       {/* Floating Elements */}
                       <motion.div
                         animate={{ y: [0, -20, 0] }}
@@ -169,12 +164,21 @@ export function AboutClient() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Our <span className="text-gradient">Mission & Vision</span>
+            <h2
+              className={`text-3xl md:text-4xl font-bold text-slate-900 mb-4 ${getBanglaFontClass()}`}
+            >
+              {getText("Our", "আমাদের")}{" "}
+              <span className="text-gradient">
+                {getText("Mission & Vision", "লক্ষ্য ও স্বপ্ন")}
+              </span>
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              We are committed to bringing the purest natural products while supporting 
-              sustainable practices and local communities.
+            <p
+              className={`text-lg text-slate-600 max-w-3xl mx-auto ${getBanglaFontClass()}`}
+            >
+              {getText(
+                "We are committed to bringing the purest natural products while supporting sustainable practices and local communities.",
+                "আমরা প্রতিশ্রুতিবদ্ধ যে টেকসই প্রথা এবং স্থানীয় সম্প্রদায়কে সহায়তা করার পাশাপাশি সবচেয়ে খাঁটি প্রাকৃতিক পণ্য নিয়ে আসতে।"
+              )}
             </p>
           </motion.div>
 
@@ -189,15 +193,18 @@ export function AboutClient() {
               <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
                 <Target className="h-8 w-8 text-amber-600" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Our Mission</h3>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                To deliver 100% pure, unadulterated natural products directly from 
-                Bhuban&apos;s forests to your home. We ensure every product maintains 
-                its natural goodness without any artificial processing.
-              </p>
-              <p className="text-slate-600 font-bengali leading-relaxed">
-                ভুবনের অরণ্য থেকে সরাসরি আপনার বাড়িতে ১০০% খাঁটি, ভেজালমুক্ত প্রাকৃতিক পণ্য পৌঁছে দেওয়া। 
-                আমরা নিশ্চিত করি যে প্রতিটি পণ্য তার প্রাকৃতিক গুণাবলী বজায় রাখে কোন কৃত্রিম প্রক্রিয়াকরণ ছাড়াই।
+              <h3
+                className={`text-2xl font-bold text-slate-900 mb-4 ${getBanglaFontClass()}`}
+              >
+                {getText("Our Mission", "আমাদের লক্ষ্য")}
+              </h3>
+              <p
+                className={`text-slate-600 leading-relaxed ${getBanglaFontClass()}`}
+              >
+                {getText(
+                  "To deliver 100% pure, unadulterated natural products directly from Bhuban's forests to your home. We ensure every product maintains its natural goodness without any artificial processing.",
+                  "ভুবনের অরণ্য থেকে সরাসরি আপনার বাড়িতে ১০০% খাঁটি, ভেজালমুক্ত প্রাকৃতিক পণ্য পৌঁছে দেওয়া। আমরা নিশ্চিত করি যে প্রতিটি পণ্য তার প্রাকৃতিক গুণাবলী বজায় রাখে কোন কৃত্রিম প্রক্রিয়াকরণ ছাড়াই।"
+                )}
               </p>
             </motion.div>
 
@@ -211,15 +218,18 @@ export function AboutClient() {
               <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mb-6">
                 <Leaf className="h-8 w-8 text-emerald-600" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Our Vision</h3>
-              <p className="text-slate-600 leading-relaxed mb-4">
-                To become Bangladesh&apos;s most trusted brand for natural products, 
-                promoting sustainable beekeeping and organic farming while preserving 
-                our rich biodiversity.
-              </p>
-              <p className="text-slate-600 font-bengali leading-relaxed">
-                বাংলাদেশের সবচেয়ে বিশ্বস্ত প্রাকৃতিক পণ্যের ব্র্যান্ড হওয়া, টেকসই মৌমাছি পালন 
-                এবং জৈব চাষকে উত্সাহিত করার পাশাপাশি আমাদের সমৃদ্ধ জীববৈচিত্র্য সংরক্ষণ করা।
+              <h3
+                className={`text-2xl font-bold text-slate-900 mb-4 ${getBanglaFontClass()}`}
+              >
+                {getText("Our Vision", "আমাদের স্বপ্ন")}
+              </h3>
+              <p
+                className={`text-slate-600 leading-relaxed ${getBanglaFontClass()}`}
+              >
+                {getText(
+                  "To become Bangladesh's most trusted brand for natural products, promoting sustainable beekeeping and organic farming while preserving our rich biodiversity.",
+                  "বাংলাদেশের সবচেয়ে বিশ্বস্ত প্রাকৃতিক পণ্যের ব্র্যান্ড হওয়া, টেকসই মৌমাছি পালন এবং জৈব চাষকে উত্সাহিত করার পাশাপাশি আমাদের সমৃদ্ধ জীববৈচিত্র্য সংরক্ষণ করা।"
+                )}
               </p>
             </motion.div>
           </div>
@@ -236,11 +246,21 @@ export function AboutClient() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Our <span className="text-gradient">Core Values</span>
+            <h2
+              className={`text-3xl md:text-4xl font-bold text-slate-900 mb-4 ${getBanglaFontClass()}`}
+            >
+              {getText("Our", "আমাদের")}{" "}
+              <span className="text-gradient">
+                {getText("Core Values", "মূল মূল্যবোধ")}
+              </span>
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              These principles guide everything we do and define who we are as a brand.
+            <p
+              className={`text-lg text-slate-600 max-w-3xl mx-auto ${getBanglaFontClass()}`}
+            >
+              {getText(
+                "These principles guide everything we do and define who we are as a brand.",
+                "এই নীতিগুলি আমাদের সমস্ত কাজকে পরিচালনা করে এবং একটি ব্র্যান্ড হিসেবে আমরা কে তা নির্ধারণ করে।"
+              )}
             </p>
           </motion.div>
 
@@ -258,14 +278,15 @@ export function AboutClient() {
                   <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     <value.icon className="h-10 w-10 text-amber-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
-                    {value.title}
+                  <h3
+                    className={`text-xl font-bold text-slate-900 mb-3 ${getBanglaFontClass()}`}
+                  >
+                    {getText(value.title, value.titleBn)}
                   </h3>
-                  <p className="text-slate-600 leading-relaxed mb-4">
-                    {value.description}
-                  </p>
-                  <p className="text-slate-500 font-bengali text-sm leading-relaxed">
-                    {value.descriptionBn}
+                  <p
+                    className={`text-slate-600 leading-relaxed ${getBanglaFontClass()}`}
+                  >
+                    {getText(value.description, value.descriptionBn)}
                   </p>
                 </div>
               </motion.div>
@@ -284,11 +305,21 @@ export function AboutClient() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Our <span className="text-gradient">Journey</span>
+            <h2
+              className={`text-3xl md:text-4xl font-bold text-slate-900 mb-4 ${getBanglaFontClass()}`}
+            >
+              {getText("Our", "আমাদের")}{" "}
+              <span className="text-gradient">
+                {getText("Journey", "যাত্রা")}
+              </span>
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              From humble beginnings to becoming a trusted name in natural products
+            <p
+              className={`text-lg text-slate-600 max-w-3xl mx-auto ${getBanglaFontClass()}`}
+            >
+              {getText(
+                "From humble beginnings to becoming a trusted name in natural products",
+                "বিনীত শুরু থেকে প্রাকৃতিক পণ্যের একটি বিশ্বস্ত নাম হয়ে উঠা"
+              )}
             </p>
           </motion.div>
 
@@ -301,7 +332,7 @@ export function AboutClient() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 className={`flex flex-col md:flex-row gap-8 mb-12 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
                 <div className="flex-1">
@@ -310,16 +341,19 @@ export function AboutClient() {
                       <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
                         <Clock className="h-6 w-6 text-amber-600" />
                       </div>
-                      <h3 className="text-2xl font-bold text-amber-600">{item.year}</h3>
+                      <h3 className="text-2xl font-bold text-amber-600">
+                        {item.year}
+                      </h3>
                     </div>
-                    <h4 className="text-xl font-semibold text-slate-900 mb-3">
-                      {item.title}
+                    <h4
+                      className={`text-xl font-semibold text-slate-900 mb-3 ${getBanglaFontClass()}`}
+                    >
+                      {getText(item.title, item.titleBn)}
                     </h4>
-                    <p className="text-slate-600 leading-relaxed">
-                      {item.description}
-                    </p>
-                    <p className="text-slate-500 font-bengali mt-3 leading-relaxed">
-                      {item.descriptionBn}
+                    <p
+                      className={`text-slate-600 leading-relaxed ${getBanglaFontClass()}`}
+                    >
+                      {getText(item.description, item.descriptionBn)}
                     </p>
                   </div>
                 </div>
@@ -346,11 +380,19 @@ export function AboutClient() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Meet Our <span className="text-gradient">Team</span>
+            <h2
+              className={`text-3xl md:text-4xl font-bold text-slate-900 mb-4 ${getBanglaFontClass()}`}
+            >
+              {getText("Meet Our", "আমাদের সাথে দেখা করুন")}{" "}
+              <span className="text-gradient">{getText("Team", "টিম")}</span>
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Passionate individuals dedicated to bringing you the purest natural products
+            <p
+              className={`text-lg text-slate-600 max-w-3xl mx-auto ${getBanglaFontClass()}`}
+            >
+              {getText(
+                "Passionate individuals dedicated to bringing you the purest natural products",
+                "আপনাকে সবচেয়ে খাঁটি প্রাকৃতিক পণ্য এনে দিতে প্রতিশ্রুতিবদ্ধ উৎসাহী ব্যক্তিরা"
+              )}
             </p>
           </motion.div>
 
@@ -394,23 +436,35 @@ export function AboutClient() {
             viewport={{ once: true }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Join Us in Our Journey of Purity
+            <h2
+              className={`text-3xl md:text-4xl font-bold mb-6 ${getBanglaFontClass()}`}
+            >
+              {getText(
+                "Join Us in Our Journey of Purity",
+                "আমাদের বিশুদ্ধতার যাত্রায় যোগ দিন"
+              )}
             </h2>
-            <p className="text-amber-100 text-lg mb-8 leading-relaxed">
-              Experience the difference that pure, natural products can make in your life. 
-              Join thousands of satisfied customers who trust Khati Bhuban for quality and purity.
-            </p>
-            <p className="text-amber-100 font-bengali text-lg mb-8 leading-relaxed">
-              আপনার জীবনে খাঁটি, প্রাকৃতিক পণ্যের পার্থক্য অনুভব করুন। 
-              মান এবং খাঁটিত্বের জন্য খাঁটি ভুবনের উপর বিশ্বাস রাখা হাজার হাজার সন্তুষ্ট গ্রাহকের সাথে যোগ দিন।
+            <p
+              className={`text-amber-100 text-lg mb-8 leading-relaxed ${getBanglaFontClass()}`}
+            >
+              {getText(
+                "Experience the difference that pure, natural products can make in your life. Join thousands of satisfied customers who trust Khati Bhuban for quality and purity.",
+                "আপনার জীবনে খাঁটি, প্রাকৃতিক পণ্যের পার্থক্য অনুভব করুন। মান এবং খাঁটিত্বের জন্য খাঁটি ভুবনের উপর বিশ্বাস রাখা হাজার হাজার সন্তুষ্ট গ্রাহকের সাথে যোগ দিন।"
+              )}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-amber-600 hover:bg-amber-50 px-8 py-3 text-lg">
-                Shop Our Products
+              <Button
+                size="lg"
+                className={`bg-white text-amber-600 hover:bg-amber-50 px-8 py-3 text-lg ${getBanglaFontClass()}`}
+              >
+                {getText("Shop Our Products", "আমাদের পণ্য কিনুন")}
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-amber-700 px-8 py-3 text-lg">
-                Contact Us
+              <Button
+                size="lg"
+                variant="outline"
+                className={`border-white text-white hover:bg-amber-700 px-8 py-3 text-lg ${getBanglaFontClass()}`}
+              >
+                {getText("Contact Us", "যোগাযোগ করুন")}
               </Button>
             </div>
           </motion.div>
@@ -424,77 +478,107 @@ export function AboutClient() {
 const values = [
   {
     icon: Shield,
-    title: 'Purity Guaranteed',
-    description: 'Every product is 100% pure with no additives, preservatives, or artificial processing.',
-    descriptionBn: 'প্রতিটি পণ্য ১০০% খাঁটি কোন additives, preservatives বা কৃত্রিম প্রক্রিয়াকরণ ছাড়া।'
+    title: "Purity Guaranteed",
+    titleBn: "গুণগত মান নিশ্চিত",
+    description:
+      "Every product is 100% pure with no additives, preservatives, or artificial processing.",
+    descriptionBn:
+      "প্রতিটি পণ্য ১০০% খাঁটি কোন additives, preservatives বা কৃত্রিম প্রক্রিয়াকরণ ছাড়া।",
   },
   {
     icon: Heart,
-    title: 'Quality First',
-    description: 'We never compromise on quality. Every batch is lab tested for purity and safety.',
-    descriptionBn: 'আমরা কখনো মানের সাথে আপস করি না। প্রতিটি ব্যাচ খাঁটিত্ব এবং নিরাপত্তার জন্য ল্যাবে পরীক্ষিত।'
+    title: "Quality First",
+    titleBn: "মান প্রথম",
+    description:
+      "We never compromise on quality. Every batch is lab tested for purity and safety.",
+    descriptionBn:
+      "আমরা কখনো মানের সাথে আপস করি না। প্রতিটি ব্যাচ খাঁটিত্ব এবং নিরাপত্তার জন্য ল্যাবে পরীক্ষিত।",
   },
   {
     icon: Users,
-    title: 'Community Support',
-    description: 'We work directly with local farmers and beekeepers, supporting sustainable livelihoods.',
-    descriptionBn: 'আমরা স্থানীয় কৃষক এবং মৌয়ালদের সাথে সরাসরি কাজ করি, টেকসই জীবিকা 지원 করি।'
+    title: "Community Support",
+    titleBn: "সম্প্রদায়িক সহায়তা",
+    description:
+      "We work directly with local farmers and beekeepers, supporting sustainable livelihoods.",
+    descriptionBn:
+      "আমরা স্থানীয় কৃষক এবং মৌয়ালদের সাথে সরাসরি কাজ করি, টেকসই জীবিকা সহায়তা করি।",
   },
   {
     icon: Leaf,
-    title: 'Eco-Friendly',
-    description: 'Sustainable practices that protect our environment and preserve biodiversity.',
-    descriptionBn: 'টেকসই চর্চা যা আমাদের পরিবেশ রক্ষা করে এবং জীববৈচিত্র্য সংরক্ষণ করে।'
-  }
+    title: "Eco-Friendly",
+    titleBn: "পরিবেশবান্ধব",
+    description:
+      "Sustainable practices that protect our environment and preserve biodiversity.",
+    descriptionBn:
+      "টেকসই চর্চা যা আমাদের পরিবেশ রক্ষা করে এবং জীববৈচিত্র্য সংরক্ষণ করে।",
+  },
 ];
 
 const timeline = [
   {
-    year: '2015',
-    title: 'The Beginning',
-    description: 'Khati Bhuban started as a small initiative to bring pure forest honey from Bhuban to local communities.',
-    descriptionBn: 'খাঁটি ভুবন শুরু হয়েছিল ভুবনের খাঁটি বন মধু স্থানীয় সম্প্রদায়ের কাছে পৌঁছে দেওয়ার একটি ছোট উদ্যোগ হিসেবে।'
+    year: "2015",
+    title: "The Beginning",
+    titleBn: "শুরুর গল্প",
+    description:
+      "Khati Bhuban started as a small initiative to bring pure forest honey from Bhuban to local communities.",
+    descriptionBn:
+      "খাঁটি ভুবন শুরু হয়েছিল ভুবনের খাঁটি বন মধু স্থানীয় সম্প্রদায়ের কাছে পৌঁছে দেওয়ার একটি ছোট উদ্যোগ হিসেবে।",
   },
   {
-    year: '2017',
-    title: 'Expanding Reach',
-    description: 'We expanded our product range to include mustard oil and other natural foods, reaching customers across Bangladesh.',
-    descriptionBn: 'আমরা সরিষার তেল এবং অন্যান্য প্রাকৃতিক খাদ্য অন্তর্ভুক্ত করে আমাদের পণ্যের পরিসর প্রসারিত করি, সারা বাংলাদেশে গ্রাহকদের কাছে পৌঁছাই।'
+    year: "2017",
+    title: "Expanding Reach",
+    titleBn: "বিস্তার লাভ",
+    description:
+      "We expanded our product range to include mustard oil and other natural foods, reaching customers across Bangladesh.",
+    descriptionBn:
+      "আমরা সরিষার তেল এবং অন্যান্য প্রাকৃতিক খাদ্য অন্তর্ভুক্ত করে আমাদের পণ্যের পরিসর প্রসারিত করি, সারা বাংলাদেশে গ্রাহকদের কাছে পৌঁছাই।",
   },
   {
-    year: '2019',
-    title: 'Quality Certification',
-    description: 'Received quality certifications and implemented lab testing for all our products to ensure purity.',
-    descriptionBn: 'গুণমান সার্টিফিকেশন প্রাপ্তি এবং খাঁটিত্ব নিশ্চিত করতে আমাদের সকল পণ্যের জন্য ল্যাব পরীক্ষা বাস্তবায়ন।'
+    year: "2019",
+    title: "Quality Certification",
+    titleBn: "মান নিশ্চয়তা",
+    description:
+      "Received quality certifications and implemented lab testing for all our products to ensure purity.",
+    descriptionBn:
+      "গুণমান সার্টিফিকেশন প্রাপ্তি এবং খাঁটিত্ব নিশ্চিত করতে আমাদের সকল পণ্যের জন্য ল্যাব পরীক্ষা বাস্তবায়ন।",
   },
   {
-    year: '2022',
-    title: 'Digital Transformation',
-    description: 'Launched our e-commerce platform to make pure natural products accessible to everyone online.',
-    descriptionBn: 'খাঁটি প্রাকৃতিক পণ্য সবার জন্য অনলাইনে অ্যাক্সেসযোগ্য করতে আমাদের ই-কমার্স প্ল্যাটফর্ম চালু।'
+    year: "2022",
+    title: "Digital Transformation",
+    titleBn: "ডিজিটাল পরিবর্তন",
+    description:
+      "Launched our e-commerce platform to make pure natural products accessible to everyone online.",
+    descriptionBn:
+      "খাঁটি প্রাকৃতিক পণ্য সবার জন্য অনলাইনে অ্যাক্সেসযোগ্য করতে আমাদের ই-কমার্স প্ল্যাটফর্ম চালু।",
   },
   {
-    year: '2024',
-    title: 'Growing Family',
-    description: 'Serving over 10,000 satisfied customers with a commitment to purity and quality that never changes.',
-    descriptionBn: '১০,০০০-এরও বেশি সন্তুষ্ট গ্রাহককে সেবা প্রদান করা, খাঁটিত্ব এবং মানের প্রতি অঙ্গীকার যা কখনো পরিবর্তিত হয় না।'
-  }
+    year: "2024",
+    title: "Growing Family",
+    titleBn: "বর্ধিষ্ণু পরিবার",
+    description:
+      "Serving over 10,000 satisfied customers with a commitment to purity and quality that never changes.",
+    descriptionBn:
+      "১০,০০০-এরও বেশি সন্তুষ্ট গ্রাহককে সেবা প্রদান করা, খাঁটিত্ব এবং মানের প্রতি অঙ্গীকার যা কখনো পরিবর্তিত হয় না।",
+  },
 ];
 
 const team = [
   {
-    name: 'Abdul Rahman',
-    role: 'Founder & CEO',
-    description: 'Passionate about preserving natural purity and supporting local communities. With over 15 years of experience in natural products.'
+    name: "Abdul Rahman",
+    role: "Founder & CEO",
+    description:
+      "Passionate about preserving natural purity and supporting local communities. With over 15 years of experience in natural products.",
   },
   {
-    name: 'Fatima Begum',
-    role: 'Quality Manager',
-    description: 'Ensures every product meets our strict quality standards. Background in food science and nutrition.'
+    name: "Fatima Begum",
+    role: "Quality Manager",
+    description:
+      "Ensures every product meets our strict quality standards. Background in food science and nutrition.",
   },
   {
-    name: 'Mohammad Ali',
-    role: 'Head of Operations',
-    description: 'Manages our supply chain and works directly with local farmers and beekeepers in Bhuban region.'
-  }
+    name: "Mohammad Ali",
+    role: "Head of Operations",
+    description:
+      "Manages our supply chain and works directly with local farmers and beekeepers in Bhuban region.",
+  },
 ];

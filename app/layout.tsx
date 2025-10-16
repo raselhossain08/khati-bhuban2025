@@ -1,66 +1,71 @@
-import type { Metadata } from 'next';
-import { Inter, Noto_Sans_Bengali } from 'next/font/google';
-import './globals.css';
-import { AuthProvider } from '@/contexts/auth-context';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
-import { CartProvider } from '@/contexts/cart-context';
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
+import type { Metadata } from "next";
+import { Inter, Noto_Sans_Bengali } from "next/font/google";
+import "./globals.css";
+import { AuthProvider } from "@/contexts/auth-context";
+import { LanguageProvider } from "@/contexts/language-context";
+import { SearchProvider } from "@/contexts/search-context";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { CartProvider } from "@/contexts/cart-context";
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 const notoSansBengali = Noto_Sans_Bengali({
-  subsets: ['bengali'],
-  variable: '--font-bengali',
-  display: 'swap',
+  subsets: ["bengali"],
+  variable: "--font-bengali",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Khati Bhuban - খাঁটি ভুবন | Pure Natural Honey & Foods',
-    template: '%s | Khati Bhuban'
+    default: "Khati Bhuban - খাঁটি ভুবন | Pure Natural Honey & Foods",
+    template: "%s | Khati Bhuban",
   },
-  description: 'Experience the pure taste of nature. 100% raw, unadulterated honey straight from the heart of Bhuban\'s forests. প্রকৃতির খাঁটি স্বাদের অভিজ্ঞতা নিন।',
-  keywords: 'pure honey, natural food, Bangladesh honey, খাঁটি মধু, ভুবনের মধু, mustard oil, সরিষার তেল, natural foods',
-  authors: [{ name: 'Khati Bhuban' }],
-  creator: 'Khati Bhuban',
-  publisher: 'Khati Bhuban',
+  description:
+    "Experience the pure taste of nature. 100% raw, unadulterated honey straight from the heart of Bhuban's forests. প্রকৃতির খাঁটি স্বাদের অভিজ্ঞতা নিন।",
+  keywords:
+    "pure honey, natural food, Bangladesh honey, খাঁটি মধু, ভুবনের মধু, mustard oil, সরিষার তেল, natural foods",
+  authors: [{ name: "Khati Bhuban" }],
+  creator: "Khati Bhuban",
+  publisher: "Khati Bhuban",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://khatibhuban.com'),
+  metadataBase: new URL("https://khatibhuban.com"),
   alternates: {
-    canonical: '/',
+    canonical: "/",
     languages: {
-      'en-US': '/en-US',
-      'bn-BD': '/bn-BD',
+      "en-US": "/en-US",
+      "bn-BD": "/bn-BD",
     },
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_BD',
-    url: 'https://khatibhuban.com',
-    title: 'Khati Bhuban - খাঁটি ভুবন | Pure Natural Honey & Foods',
-    description: 'Experience the pure taste of nature. 100% raw, unadulterated honey from Bhuban\'s forests.',
-    siteName: 'Khati Bhuban',
+    type: "website",
+    locale: "en_BD",
+    url: "https://khatibhuban.com",
+    title: "Khati Bhuban - খাঁটি ভুবন | Pure Natural Honey & Foods",
+    description:
+      "Experience the pure taste of nature. 100% raw, unadulterated honey from Bhuban's forests.",
+    siteName: "Khati Bhuban",
     images: [
       {
-        url: '/og-image.jpg',
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: 'Khati Bhuban - Pure Natural Honey',
+        alt: "Khati Bhuban - Pure Natural Honey",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Khati Bhuban - খাঁটি ভুবन',
-    description: 'Pure natural honey and foods from Bangladesh',
-    images: ['/twitter-image.jpg'],
+    card: "summary_large_image",
+    title: "Khati Bhuban - খাঁটি ভুবन",
+    description: "Pure natural honey and foods from Bangladesh",
+    images: ["/twitter-image.jpg"],
   },
   robots: {
     index: true,
@@ -68,9 +73,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 };
@@ -81,17 +86,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="bn" className={`${inter.variable} ${notoSansBengali.variable}`}>
+    <html lang="en" className={`${inter.variable} ${notoSansBengali.variable}`}>
       <body className="font-sans antialiased">
-        <AuthProvider>
-          <div className="min-h-screen bg-white flex flex-col">
-            <Header />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </div>
-        </AuthProvider>
+        <LanguageProvider>
+          <SearchProvider>
+            <AuthProvider>
+              <CartProvider>
+                <div className="min-h-screen bg-white flex flex-col">
+                  <Header />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                </div>
+              </CartProvider>
+            </AuthProvider>
+          </SearchProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

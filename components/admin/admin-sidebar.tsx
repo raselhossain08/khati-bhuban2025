@@ -1,67 +1,85 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 import {
+  LayoutDashboard,
   Package,
   ShoppingCart,
   Users,
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  Eye,
-  Star
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { RecentOrders } from './recent-orders';
-import { SalesChart } from './sales-chart';
-import { TopProducts } from './top-products';
+  BarChart3,
+  Megaphone,
+  Settings,
+  Home,
+} from "lucide-react";
 
 // Mock data
 const stats = [
   {
-    name: 'Total Products',
-    nameBn: 'মোট পণ্য',
-    value: '156',
-    change: '+12%',
-    trend: 'up',
+    name: "Total Products",
+    nameBn: "মোট পণ্য",
+    value: "156",
+    change: "+12%",
+    trend: "up",
     icon: Package,
-    color: 'blue'
+    color: "blue",
   },
   {
-    name: 'Total Orders',
-    nameBn: 'মোট অর্ডার',
-    value: '1,234',
-    change: '+8%',
-    trend: 'up',
+    name: "Total Orders",
+    nameBn: "মোট অর্ডার",
+    value: "1,234",
+    change: "+8%",
+    trend: "up",
     icon: ShoppingCart,
-    color: 'green'
+    color: "green",
   },
   {
-    name: 'Total Customers',
-    nameBn: 'মোট গ্রাহক',
-    value: '892',
-    change: '+15%',
-    trend: 'up',
+    name: "Total Customers",
+    nameBn: "মোট গ্রাহক",
+    value: "892",
+    change: "+15%",
+    trend: "up",
     icon: Users,
-    color: 'amber'
+    color: "amber",
   },
   {
-    name: 'Total Revenue',
-    nameBn: 'মোট আয়',
-    value: '৳ 4,56,789',
-    change: '+23%',
-    trend: 'up',
+    name: "Total Revenue",
+    nameBn: "মোট আয়",
+    value: "৳ 4,56,789",
+    change: "+23%",
+    trend: "up",
     icon: DollarSign,
-    color: 'emerald'
-  }
+    color: "emerald",
+  },
 ];
 
 const quickActions = [
-  { name: 'Add Product', nameBn: 'পণ্য যোগ করুন', href: '/admin/products/new', icon: Package },
-  { name: 'View Orders', nameBn: 'অর্ডার দেখুন', href: '/admin/orders', icon: ShoppingCart },
-  { name: 'Manage Inventory', nameBn: 'ইনভেন্টরি ম্যানেজ করুন', href: '/admin/inventory', icon: Package },
-  { name: 'View Analytics', nameBn: 'এনালিটিক্স দেখুন', href: '/admin/analytics', icon: TrendingUp }
+  {
+    name: "Add Product",
+    nameBn: "পণ্য যোগ করুন",
+    href: "/admin/products/new",
+    icon: Package,
+  },
+  {
+    name: "View Orders",
+    nameBn: "অর্ডার দেখুন",
+    href: "/admin/orders",
+    icon: ShoppingCart,
+  },
+  {
+    name: "Manage Inventory",
+    nameBn: "ইনভেন্টরি ম্যানেজ করুন",
+    href: "/admin/inventory",
+    icon: Package,
+  },
+  {
+    name: "View Analytics",
+    nameBn: "এনালিটিক্স দেখুন",
+    href: "/admin/analytics",
+    icon: TrendingUp,
+  },
 ];
 
 export function DashboardClient() {
@@ -90,8 +108,8 @@ export function DashboardClient() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
-          const TrendIcon = stat.trend === 'up' ? TrendingUp : TrendingDown;
-          
+          const TrendIcon = stat.trend === "up" ? TrendingUp : TrendingDown;
+
           return (
             <motion.div
               key={stat.name}
@@ -102,27 +120,45 @@ export function DashboardClient() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-slate-600">{stat.name}</p>
-                  <p className="text-xs text-slate-500 font-bengali">{stat.nameBn}</p>
-                  <p className="text-2xl font-bold text-slate-900 mt-2">{stat.value}</p>
+                  <p className="text-sm font-medium text-slate-600">
+                    {stat.name}
+                  </p>
+                  <p className="text-xs text-slate-500 font-bengali">
+                    {stat.nameBn}
+                  </p>
+                  <p className="text-2xl font-bold text-slate-900 mt-2">
+                    {stat.value}
+                  </p>
                 </div>
-                <div className={`p-3 rounded-lg ${
-                  stat.color === 'blue' ? 'bg-blue-50' :
-                  stat.color === 'green' ? 'bg-green-50' :
-                  stat.color === 'amber' ? 'bg-amber-50' :
-                  'bg-emerald-50'
-                }`}>
-                  <Icon className={`h-6 w-6 ${
-                    stat.color === 'blue' ? 'text-blue-600' :
-                    stat.color === 'green' ? 'text-green-600' :
-                    stat.color === 'amber' ? 'text-amber-600' :
-                    'text-emerald-600'
-                  }`} />
+                <div
+                  className={`p-3 rounded-lg ${
+                    stat.color === "blue"
+                      ? "bg-blue-50"
+                      : stat.color === "green"
+                      ? "bg-green-50"
+                      : stat.color === "amber"
+                      ? "bg-amber-50"
+                      : "bg-emerald-50"
+                  }`}
+                >
+                  <Icon
+                    className={`h-6 w-6 ${
+                      stat.color === "blue"
+                        ? "text-blue-600"
+                        : stat.color === "green"
+                        ? "text-green-600"
+                        : stat.color === "amber"
+                        ? "text-amber-600"
+                        : "text-emerald-600"
+                    }`}
+                  />
                 </div>
               </div>
-              <div className={`flex items-center gap-1 mt-4 text-sm ${
-                stat.trend === 'up' ? 'text-green-600' : 'text-rose-600'
-              }`}>
+              <div
+                className={`flex items-center gap-1 mt-4 text-sm ${
+                  stat.trend === "up" ? "text-green-600" : "text-rose-600"
+                }`}
+              >
                 <TrendIcon className="h-4 w-4" />
                 <span>{stat.change}</span>
                 <span className="text-slate-500">from last month</span>
@@ -158,7 +194,9 @@ export function DashboardClient() {
                   >
                     <Icon className="h-5 w-5 text-amber-600" />
                     <div>
-                      <div className="font-medium text-slate-900">{action.name}</div>
+                      <div className="font-medium text-slate-900">
+                        {action.name}
+                      </div>
                       <div className="text-sm text-slate-500 font-bengali">
                         {action.nameBn}
                       </div>
@@ -185,7 +223,9 @@ export function DashboardClient() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ShoppingCart className="h-4 w-4 text-slate-400" />
-                  <span className="text-sm text-slate-600">Conversion Rate</span>
+                  <span className="text-sm text-slate-600">
+                    Conversion Rate
+                  </span>
                 </div>
                 <span className="font-semibold text-green-600">4.2%</span>
               </div>

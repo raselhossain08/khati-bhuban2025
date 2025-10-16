@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
   Filter,
@@ -15,75 +15,79 @@ import {
   Leaf,
   Sparkles,
   SortAsc,
-  ChevronDown
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ProductCard } from '@/components/products/product-card';
-import { useCart } from '@/contexts/cart-context';
-import { formatPrice } from '@/lib/utils';
+  ChevronDown,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ProductCard } from "@/components/products/product-card";
+import { useAuth } from "@/contexts/auth-context";
+import { formatPrice } from "@/lib/utils";
 
 export function ProductsListingClient() {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sortBy, setSortBy] = useState('featured');
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [sortBy, setSortBy] = useState("featured");
   const [priceRange, setPriceRange] = useState([0, 2000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { addItem } = useCart();
+  const { addToCart } = useAuth();
 
   // Filter and sort products
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.nameBn.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCategory = selectedCategories.length === 0 || 
-                           selectedCategories.includes(product.category);
-    
-    const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-    
-    const matchesTags = selectedTags.length === 0 || 
-                       selectedTags.some(tag => product.tags.includes(tag));
-    
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch =
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.nameBn.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(product.category);
+
+    const matchesPrice =
+      product.price >= priceRange[0] && product.price <= priceRange[1];
+
+    const matchesTags =
+      selectedTags.length === 0 ||
+      selectedTags.some((tag) => product.tags.includes(tag));
+
     return matchesSearch && matchesCategory && matchesPrice && matchesTags;
   });
 
   // Sort products
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
-      case 'price-low':
+      case "price-low":
         return a.price - b.price;
-      case 'price-high':
+      case "price-high":
         return b.price - a.price;
-      case 'name':
+      case "name":
         return a.name.localeCompare(b.name);
-      case 'rating':
+      case "rating":
         return b.rating - a.rating;
-      case 'featured':
+      case "featured":
       default:
-        return (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0) || b.sales - a.sales;
+        return (
+          (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0) || b.sales - a.sales
+        );
     }
   });
 
   const handleAddToCart = (product: any) => {
-    addItem(product, 1);
+    addToCart(product, 1);
   };
 
   const toggleCategory = (category: string) => {
-    setSelectedCategories(prev =>
+    setSelectedCategories((prev) =>
       prev.includes(category)
-        ? prev.filter(c => c !== category)
+        ? prev.filter((c) => c !== category)
         : [...prev, category]
     );
   };
 
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag)
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
   };
 
@@ -91,8 +95,8 @@ export function ProductsListingClient() {
     setSelectedCategories([]);
     setSelectedTags([]);
     setPriceRange([0, 2000]);
-    setSearchTerm('');
-    setSortBy('featured');
+    setSearchTerm("");
+    setSortBy("featured");
   };
 
   return (
@@ -121,15 +125,15 @@ export function ProductsListingClient() {
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
               Our <span className="text-gradient">Products</span>
             </h1>
-            
+
             <p className="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
-              Discover our complete collection of pure natural honey, organic oils, 
-              and healthy food products straight from the heart of nature.
+              Discover our complete collection of pure natural honey, organic
+              oils, and healthy food products straight from the heart of nature.
             </p>
 
             <p className="text-slate-600 font-bengali mb-8 max-w-2xl mx-auto">
-              প্রকৃতির গভীর থেকে সরাসরি আনা আমাদের সম্পূর্ণ সংগ্রহ - খাঁটি প্রাকৃতিক মধু, 
-              জৈব তেল এবং স্বাস্থ্যকর খাদ্য পণ্য আবিষ্কার করুন।
+              প্রকৃতির গভীর থেকে সরাসরি আনা আমাদের সম্পূর্ণ সংগ্রহ - খাঁটি
+              প্রাকৃতিক মধু, জৈব তেল এবং স্বাস্থ্যকর খাদ্য পণ্য আবিষ্কার করুন।
             </p>
 
             {/* Quick Stats */}
@@ -192,10 +196,15 @@ export function ProductsListingClient() {
 
               {/* Categories */}
               <div className="mb-6">
-                <h3 className="text-sm font-semibold text-slate-900 mb-3">Categories</h3>
+                <h3 className="text-sm font-semibold text-slate-900 mb-3">
+                  Categories
+                </h3>
                 <div className="space-y-2">
-                  {categories.map(category => (
-                    <label key={category.value} className="flex items-center gap-3 cursor-pointer group">
+                  {categories.map((category) => (
+                    <label
+                      key={category.value}
+                      className="flex items-center gap-3 cursor-pointer group"
+                    >
                       <input
                         type="checkbox"
                         checked={selectedCategories.includes(category.value)}
@@ -228,7 +237,9 @@ export function ProductsListingClient() {
                     min="0"
                     max="2000"
                     value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                    onChange={(e) =>
+                      setPriceRange([priceRange[0], parseInt(e.target.value)])
+                    }
                     className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-amber-600"
                   />
                 </div>
@@ -236,16 +247,18 @@ export function ProductsListingClient() {
 
               {/* Tags */}
               <div className="mb-6">
-                <h3 className="text-sm font-semibold text-slate-900 mb-3">Popular Tags</h3>
+                <h3 className="text-sm font-semibold text-slate-900 mb-3">
+                  Popular Tags
+                </h3>
                 <div className="flex flex-wrap gap-2">
-                  {popularTags.map(tag => (
+                  {popularTags.map((tag) => (
                     <button
                       key={tag}
                       onClick={() => toggleTag(tag)}
                       className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
                         selectedTags.includes(tag)
-                          ? 'bg-amber-600 text-white'
-                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                          ? "bg-amber-600 text-white"
+                          : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                       }`}
                     >
                       {tag}
@@ -255,16 +268,20 @@ export function ProductsListingClient() {
               </div>
 
               {/* Active Filters */}
-              {(selectedCategories.length > 0 || selectedTags.length > 0 || priceRange[1] < 2000) && (
+              {(selectedCategories.length > 0 ||
+                selectedTags.length > 0 ||
+                priceRange[1] < 2000) && (
                 <div className="pt-4 border-t border-slate-200">
-                  <h4 className="text-sm font-semibold text-slate-900 mb-2">Active Filters</h4>
+                  <h4 className="text-sm font-semibold text-slate-900 mb-2">
+                    Active Filters
+                  </h4>
                   <div className="flex flex-wrap gap-2">
-                    {selectedCategories.map(category => (
+                    {selectedCategories.map((category) => (
                       <span
                         key={category}
                         className="inline-flex items-center gap-1 px-2 py-1 bg-amber-100 text-amber-700 rounded text-xs"
                       >
-                        {categories.find(c => c.value === category)?.label}
+                        {categories.find((c) => c.value === category)?.label}
                         <button
                           onClick={() => toggleCategory(category)}
                           className="hover:text-amber-900"
@@ -273,7 +290,7 @@ export function ProductsListingClient() {
                         </button>
                       </span>
                     ))}
-                    {selectedTags.map(tag => (
+                    {selectedTags.map((tag) => (
                       <span
                         key={tag}
                         className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs"
@@ -317,9 +334,10 @@ export function ProductsListingClient() {
                 {/* Results Count */}
                 <div className="flex items-center gap-4">
                   <span className="text-sm text-slate-600">
-                    Showing {sortedProducts.length} of {products.length} products
+                    Showing {sortedProducts.length} of {products.length}{" "}
+                    products
                   </span>
-                  
+
                   {/* Mobile Filter Button */}
                   <button
                     onClick={() => setShowFilters(true)}
@@ -351,21 +369,21 @@ export function ProductsListingClient() {
                   {/* View Toggle */}
                   <div className="flex items-center gap-1 border border-slate-300 rounded-lg p-1">
                     <button
-                      onClick={() => setViewMode('grid')}
+                      onClick={() => setViewMode("grid")}
                       className={`p-2 rounded ${
-                        viewMode === 'grid'
-                          ? 'bg-amber-100 text-amber-600'
-                          : 'text-slate-400 hover:text-slate-600'
+                        viewMode === "grid"
+                          ? "bg-amber-100 text-amber-600"
+                          : "text-slate-400 hover:text-slate-600"
                       }`}
                     >
                       <Grid className="h-4 w-4" />
                     </button>
                     <button
-                      onClick={() => setViewMode('list')}
+                      onClick={() => setViewMode("list")}
                       className={`p-2 rounded ${
-                        viewMode === 'list'
-                          ? 'bg-amber-100 text-amber-600'
-                          : 'text-slate-400 hover:text-slate-600'
+                        viewMode === "list"
+                          ? "bg-amber-100 text-amber-600"
+                          : "text-slate-400 hover:text-slate-600"
                       }`}
                     >
                       <List className="h-4 w-4" />
@@ -385,9 +403,9 @@ export function ProductsListingClient() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                   className={
-                    viewMode === 'grid'
-                      ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
-                      : 'space-y-6'
+                    viewMode === "grid"
+                      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                      : "space-y-6"
                   }
                 >
                   {sortedProducts.map((product, index) => (
@@ -439,7 +457,11 @@ export function ProductsListingClient() {
                 viewport={{ once: true }}
                 className="text-center mt-12"
               >
-                <Button variant="outline" size="lg" className="border-amber-600 text-amber-600 hover:bg-amber-50">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-amber-600 text-amber-600 hover:bg-amber-50"
+                >
                   Load More Products
                 </Button>
               </motion.div>
@@ -460,13 +482,13 @@ export function ProductsListingClient() {
               onClick={() => setShowFilters(false)}
               className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             />
-            
+
             {/* Filters Sidebar */}
             <motion.div
-              initial={{ x: '-100%' }}
+              initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 30 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 30 }}
               className="fixed top-0 left-0 h-full w-80 bg-white z-50 lg:hidden overflow-y-auto"
             >
               <div className="p-6">
@@ -501,18 +523,29 @@ export function ProductsListingClient() {
 
                   {/* Categories */}
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-900 mb-3">Categories</h3>
+                    <h3 className="text-sm font-semibold text-slate-900 mb-3">
+                      Categories
+                    </h3>
                     <div className="space-y-2">
-                      {categories.map(category => (
-                        <label key={category.value} className="flex items-center gap-3 cursor-pointer">
+                      {categories.map((category) => (
+                        <label
+                          key={category.value}
+                          className="flex items-center gap-3 cursor-pointer"
+                        >
                           <input
                             type="checkbox"
-                            checked={selectedCategories.includes(category.value)}
+                            checked={selectedCategories.includes(
+                              category.value
+                            )}
                             onChange={() => toggleCategory(category.value)}
                             className="rounded border-slate-300 text-amber-600 focus:ring-amber-500"
                           />
-                          <span className="text-sm text-slate-700">{category.label}</span>
-                          <span className="text-xs text-slate-400 ml-auto">({category.count})</span>
+                          <span className="text-sm text-slate-700">
+                            {category.label}
+                          </span>
+                          <span className="text-xs text-slate-400 ml-auto">
+                            ({category.count})
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -537,138 +570,145 @@ export function ProductsListingClient() {
 
 // Data
 const categories = [
-  { value: 'honey', label: 'Pure Honey', count: 12 },
-  { value: 'mustard-oil', label: 'Mustard Oil', count: 8 },
-  { value: 'natural-foods', label: 'Natural Foods', count: 15 },
-  { value: 'organic', label: 'Organic Products', count: 10 }
+  { value: "honey", label: "Pure Honey", count: 12 },
+  { value: "mustard-oil", label: "Mustard Oil", count: 8 },
+  { value: "natural-foods", label: "Natural Foods", count: 15 },
+  { value: "organic", label: "Organic Products", count: 10 },
 ];
 
 const popularTags = [
-  'pure', 'organic', 'raw', 'natural', 'premium', 'wild', 'forest', 'cold-pressed'
+  "pure",
+  "organic",
+  "raw",
+  "natural",
+  "premium",
+  "wild",
+  "forest",
+  "cold-pressed",
 ];
 
 const products = [
   {
-    id: '1',
-    slug: 'bhuban-wild-honey',
-    name: 'Bhuban Wild Honey',
-    nameBn: 'ভুবন বন মধু',
-    description: 'Pure wild forest honey collected from Bhuban forests',
-    descriptionBn: 'ভুবন অরণ্য থেকে সংগৃহীত খাঁটি বন মধু',
+    id: "1",
+    slug: "bhuban-wild-honey",
+    name: "Bhuban Wild Honey",
+    nameBn: "ভুবন বন মধু",
+    description: "Pure wild forest honey collected from Bhuban forests",
+    descriptionBn: "ভুবন অরণ্য থেকে সংগৃহীত খাঁটি বন মধু",
     price: 450,
     originalPrice: 500,
-    images: ['/products/wild-honey.jpg'],
-    category: 'honey',
+    images: ["/products/wild-honey.jpg"],
+    category: "honey",
     inStock: true,
     stockQuantity: 50,
     isFeatured: true,
     isBestSeller: true,
-    tags: ['wild', 'forest', 'pure', 'premium'],
-    weight: '500gm',
+    tags: ["wild", "forest", "pure", "premium"],
+    weight: "500gm",
     rating: 4.8,
     reviewCount: 124,
-    sales: 156
+    sales: 156,
   },
   {
-    id: '2',
-    slug: 'pure-mustard-honey',
-    name: 'Pure Mustard Honey',
-    nameBn: 'খাঁটি সরিষার মধু',
-    description: 'Golden mustard honey with rich flavor and aroma',
-    descriptionBn: 'সমৃদ্ধ স্বাদ এবং সুগন্ধ সহ সোনালী সরিষার মধু',
+    id: "2",
+    slug: "pure-mustard-honey",
+    name: "Pure Mustard Honey",
+    nameBn: "খাঁটি সরিষার মধু",
+    description: "Golden mustard honey with rich flavor and aroma",
+    descriptionBn: "সমৃদ্ধ স্বাদ এবং সুগন্ধ সহ সোনালী সরিষার মধু",
     price: 400,
     originalPrice: 450,
-    images: ['/products/mustard-honey.jpg'],
-    category: 'honey',
+    images: ["/products/mustard-honey.jpg"],
+    category: "honey",
     inStock: true,
     stockQuantity: 35,
     isFeatured: true,
     isBestSeller: true,
-    tags: ['mustard', 'golden', 'pure'],
-    weight: '500gm',
+    tags: ["mustard", "golden", "pure"],
+    weight: "500gm",
     rating: 4.6,
     reviewCount: 89,
-    sales: 128
+    sales: 128,
   },
   {
-    id: '3',
-    slug: 'cold-pressed-mustard-oil',
-    name: 'Cold-Pressed Mustard Oil',
-    nameBn: 'কোল্ড-প্রেসড সরিষার তেল',
-    description: 'Pure cold-pressed mustard oil for healthy cooking',
-    descriptionBn: 'স্বাস্থ্যকর রান্নার জন্য খাঁটি কোল্ড-প্রেসড সরিষার তেল',
+    id: "3",
+    slug: "cold-pressed-mustard-oil",
+    name: "Cold-Pressed Mustard Oil",
+    nameBn: "কোল্ড-প্রেসড সরিষার তেল",
+    description: "Pure cold-pressed mustard oil for healthy cooking",
+    descriptionBn: "স্বাস্থ্যকর রান্নার জন্য খাঁটি কোল্ড-প্রেসড সরিষার তেল",
     price: 350,
-    images: ['/products/mustard-oil.jpg'],
-    category: 'mustard-oil',
+    images: ["/products/mustard-oil.jpg"],
+    category: "mustard-oil",
     inStock: true,
     stockQuantity: 25,
     isFeatured: false,
     isBestSeller: true,
-    tags: ['cold-pressed', 'pure', 'cooking', 'organic'],
-    weight: '1L',
+    tags: ["cold-pressed", "pure", "cooking", "organic"],
+    weight: "1L",
     rating: 4.7,
     reviewCount: 67,
-    sales: 89
+    sales: 89,
   },
   {
-    id: '4',
-    slug: 'premium-dates',
-    name: 'Premium Natural Dates',
-    nameBn: 'প্রিমিয়াম প্রাকৃতিক খেজুর',
-    description: 'Fresh and nutritious natural dates',
-    descriptionBn: 'তাজা এবং পুষ্টিকর প্রাকৃতিক খেজুর',
+    id: "4",
+    slug: "premium-dates",
+    name: "Premium Natural Dates",
+    nameBn: "প্রিমিয়াম প্রাকৃতিক খেজুর",
+    description: "Fresh and nutritious natural dates",
+    descriptionBn: "তাজা এবং পুষ্টিকর প্রাকৃতিক খেজুর",
     price: 600,
     originalPrice: 700,
-    images: ['/products/dates.jpg'],
-    category: 'natural-foods',
+    images: ["/products/dates.jpg"],
+    category: "natural-foods",
     inStock: true,
     stockQuantity: 40,
     isFeatured: true,
     isBestSeller: false,
-    tags: ['dates', 'natural', 'nutritious', 'premium'],
-    weight: '1kg',
+    tags: ["dates", "natural", "nutritious", "premium"],
+    weight: "1kg",
     rating: 4.9,
     reviewCount: 156,
-    sales: 76
+    sales: 76,
   },
   {
-    id: '5',
-    slug: 'mixed-natural-honey',
-    name: 'Mixed Natural Honey',
-    nameBn: 'মিশ্র প্রাকৃতিক মধু',
-    description: 'Blend of different natural honey varieties',
-    descriptionBn: 'বিভিন্ন প্রাকৃতিক মধুর varieties এর মিশ্রণ',
+    id: "5",
+    slug: "mixed-natural-honey",
+    name: "Mixed Natural Honey",
+    nameBn: "মিশ্র প্রাকৃতিক মধু",
+    description: "Blend of different natural honey varieties",
+    descriptionBn: "বিভিন্ন প্রাকৃতিক মধুর varieties এর মিশ্রণ",
     price: 380,
-    images: ['/products/mixed-honey.jpg'],
-    category: 'honey',
+    images: ["/products/mixed-honey.jpg"],
+    category: "honey",
     inStock: true,
     stockQuantity: 60,
     isFeatured: false,
     isBestSeller: false,
-    tags: ['mixed', 'natural', 'blend'],
-    weight: '500gm',
+    tags: ["mixed", "natural", "blend"],
+    weight: "500gm",
     rating: 4.5,
     reviewCount: 45,
-    sales: 64
+    sales: 64,
   },
   {
-    id: '6',
-    slug: 'organic-mustard-oil',
-    name: 'Organic Mustard Oil',
-    nameBn: 'জৈব সরিষার তেল',
-    description: '100% organic cold-pressed mustard oil',
-    descriptionBn: '১০০% জৈব কোল্ড-প্রেসড সরিষার তেল',
+    id: "6",
+    slug: "organic-mustard-oil",
+    name: "Organic Mustard Oil",
+    nameBn: "জৈব সরিষার তেল",
+    description: "100% organic cold-pressed mustard oil",
+    descriptionBn: "১০০% জৈব কোল্ড-প্রেসড সরিষার তেল",
     price: 420,
-    images: ['/products/organic-oil.jpg'],
-    category: 'mustard-oil',
+    images: ["/products/organic-oil.jpg"],
+    category: "mustard-oil",
     inStock: true,
     stockQuantity: 30,
     isFeatured: true,
     isBestSeller: false,
-    tags: ['organic', 'cold-pressed', 'pure'],
-    weight: '500ml',
+    tags: ["organic", "cold-pressed", "pure"],
+    weight: "500ml",
     rating: 4.8,
     reviewCount: 78,
-    sales: 52
-  }
+    sales: 52,
+  },
 ];

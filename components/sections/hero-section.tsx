@@ -1,12 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Star, Truck, Shield, Leaf } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Star, Truck, Shield, Leaf } from "lucide-react";
+import { useLanguageUtils } from "@/lib/useLanguageUtils";
 
 export function HeroSection() {
+  const { getText, getBanglaFontClass } = useLanguageUtils();
+
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-amber-50 via-white to-emerald-50 overflow-hidden">
       {/* Background Pattern */}
@@ -32,8 +35,13 @@ export function HeroSection() {
               className="inline-flex items-center px-4 py-2 rounded-full bg-amber-100 border border-amber-200 mb-6"
             >
               <Star className="h-4 w-4 text-amber-600 mr-2 fill-current" />
-              <span className="text-sm font-medium text-amber-700">
-                Bangladesh&apos;s Most Trusted Honey Brand
+              <span
+                className={`text-sm font-medium text-amber-700 ${getBanglaFontClass()}`}
+              >
+                {getText(
+                  "Bangladesh's Most Trusted Honey Brand",
+                  "বাংলাদেশের সবচেয়ে বিশ্বস্ত মধুর ব্র্যান্ড"
+                )}
               </span>
             </motion.div>
 
@@ -41,40 +49,25 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight"
+              className={`text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight ${getBanglaFontClass()}`}
             >
-              Experience The{' '}
-              <span className="text-gradient">Pure Taste</span>{' '}
-              Of Nature
+              {getText("Experience The", "প্রকৃতির")}{" "}
+              <span className="text-gradient">
+                {getText("Pure Taste", "খাঁটি স্বাদের")}
+              </span>{" "}
+              {getText("Of Nature", "অভিজ্ঞতা নিন")}
             </motion.h1>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-2xl md:text-3xl font-bengali text-slate-700 mb-6 leading-relaxed"
-            >
-              প্রকৃতির <span className="text-amber-600">খাঁটি স্বাদের</span> অভিজ্ঞতা নিন
-            </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-lg text-slate-600 mb-8 max-w-2xl leading-relaxed"
+              className={`text-lg text-slate-600 mb-8 max-w-2xl leading-relaxed ${getBanglaFontClass()}`}
             >
-              100% raw, unadulterated honey straight from the heart of Bhuban&apos;s forests. 
-              Guaranteed purity, guaranteed goodness for your family.
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-slate-600 font-bengali mb-8 leading-relaxed"
-            >
-              ভুবনের অরণ্যের গভীর থেকে সরাসরি আপনার বাড়িতে। 
-              <span className="text-amber-600"> গ্যারান্টিড খাঁটি। গ্যারান্টিড উপকারিতা।</span>
+              {getText(
+                "100% raw, unadulterated honey straight from the heart of Bhuban's forests. Guaranteed purity, guaranteed goodness for your family.",
+                "ভুবনের অরণ্যের গভীর থেকে সরাসরি আপনার বাড়িতে। গ্যারান্টিড খাঁটি। গ্যারান্টিড উপকারিতা।"
+              )}
             </motion.p>
 
             <motion.div
@@ -83,15 +76,24 @@ export function HeroSection() {
               transition={{ delay: 0.7, duration: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
             >
-              <Button size="lg" className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg" asChild>
-                <Link href="/categories/honey">
-                  Shop Pure Honey
+              <Button
+                size="lg"
+                className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-lg"
+                asChild
+              >
+                <Link href="/categories/honey" className={getBanglaFontClass()}>
+                  {getText("Shop Pure Honey", "খাঁটি মধু কিনুন")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" className="px-8 py-3 text-lg border-amber-600 text-amber-600 hover:bg-amber-50" asChild>
-                <Link href="/about">
-                  Learn More
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-8 py-3 text-lg border-amber-600 text-amber-600 hover:bg-amber-50"
+                asChild
+              >
+                <Link href="/about" className={getBanglaFontClass()}>
+                  {getText("Learn More", "আরও জানুন")}
                 </Link>
               </Button>
             </motion.div>
@@ -136,7 +138,7 @@ export function HeroSection() {
                         <div className="w-24 h-2 bg-amber-200 rounded-full mx-auto"></div>
                       </div>
                     </div>
-                    
+
                     {/* Floating Elements */}
                     <motion.div
                       animate={{ y: [0, -10, 0] }}
@@ -149,11 +151,17 @@ export function HeroSection() {
                       className="absolute top-8 right-6 w-6 h-6 bg-amber-300 rounded-full opacity-30"
                     ></motion.div>
                   </div>
-                  
+
                   <div className="mt-6 text-center">
-                    <h3 className="font-semibold text-slate-900 text-lg">Bhuban Wild Honey</h3>
-                    <p className="text-amber-600 font-bold text-xl mt-2">৳ 450</p>
-                    <p className="text-slate-500 text-sm mt-1 font-bengali">বন মধু - ৫০০ গ্রাম</p>
+                    <h3 className="font-semibold text-slate-900 text-lg">
+                      Bhuban Wild Honey
+                    </h3>
+                    <p className="text-amber-600 font-bold text-xl mt-2">
+                      ৳ 450
+                    </p>
+                    <p className="text-slate-500 text-sm mt-1 font-bengali">
+                      বন মধু - ৫০০ গ্রাম
+                    </p>
                   </div>
                 </div>
               </div>

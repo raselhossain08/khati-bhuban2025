@@ -1,48 +1,48 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Bee, Sprout, Wheat } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Heart, Droplets, ShoppingBasket } from "lucide-react";
 
 const categories = [
   {
-    name: 'Pure Honey',
-    nameBn: 'খাঁটি মধু',
-    description: '100% raw, unadulterated honey from Bhuban forests',
-    descriptionBn: 'ভুবন অরণ্যের ১০০% কাঁচা, ভেজালমুক্ত মধু',
-    href: '/categories/honey',
-    image: '/categories/honey.jpg',
-    icon: Bee,
-    color: 'from-amber-500 to-orange-500',
-    bgColor: 'bg-amber-50',
-    productCount: 12
+    name: "Pure Honey",
+    nameBn: "খাঁটি মধু",
+    description: "100% raw, unadulterated honey from Bhuban forests",
+    descriptionBn: "ভুবন অরণ্যের ১০০% কাঁচা, ভেজালমুক্ত মধু",
+    href: "/categories/honey",
+    image: "/categories/honey.jpg",
+    icon: Heart,
+    color: "from-amber-500 to-orange-500",
+    bgColor: "bg-amber-50",
+    productCount: 12,
   },
   {
-    name: 'Mustard Oil',
-    nameBn: 'সরিষার তেল',
-    description: 'Cold-pressed pure mustard oil for healthy cooking',
-    descriptionBn: 'স্বাস্থ্যকর রান্নার জন্য কোল্ড-প্রেসড খাঁটি সরিষার তেল',
-    href: '/categories/mustard-oil',
-    image: '/categories/mustard-oil.jpg',
-    icon: Sprout,
-    color: 'from-yellow-500 to-lime-500',
-    bgColor: 'bg-lime-50',
-    productCount: 8
+    name: "Mustard Oil",
+    nameBn: "সরিষার তেল",
+    description: "Cold-pressed pure mustard oil for healthy cooking",
+    descriptionBn: "স্বাস্থ্যকর রান্নার জন্য কোল্ড-প্রেসড খাঁটি সরিষার তেল",
+    href: "/categories/mustard-oil",
+    image: "/categories/mustard-oil.jpg",
+    icon: Droplets,
+    color: "from-yellow-500 to-lime-500",
+    bgColor: "bg-lime-50",
+    productCount: 8,
   },
   {
-    name: 'Natural Foods',
-    nameBn: 'প্রাকৃতিক খাবার',
-    description: 'Organic and natural food products',
-    descriptionBn: 'জৈব ও প্রাকৃতিক খাদ্য পণ্য',
-    href: '/categories/natural-foods',
-    image: '/categories/natural-foods.jpg',
-    icon: Wheat,
-    color: 'from-emerald-500 to-green-500',
-    bgColor: 'bg-emerald-50',
-    productCount: 15
-  }
+    name: "Natural Foods",
+    nameBn: "প্রাকৃতিক খাবার",
+    description: "Organic and natural food products",
+    descriptionBn: "জৈব ও প্রাকৃতিক খাদ্য পণ্য",
+    href: "/categories/natural-foods",
+    image: "/categories/natural-foods.jpg",
+    icon: ShoppingBasket,
+    color: "from-emerald-500 to-green-500",
+    bgColor: "bg-emerald-50",
+    productCount: 15,
+  },
 ];
 
 export function FeaturedCategories() {
@@ -64,7 +64,8 @@ export function FeaturedCategories() {
             Discover our range of pure, natural products straight from nature
           </p>
           <p className="text-slate-600 font-bengali">
-            প্রকৃতি থেকে সরাসরি আমাদের খাঁটি, প্রাকৃতিক পণ্যের সংগ্রহ আবিষ্কার করুন
+            প্রকৃতি থেকে সরাসরি আমাদের খাঁটি, প্রাকৃতিক পণ্যের সংগ্রহ আবিষ্কার
+            করুন
           </p>
         </motion.div>
 
@@ -81,9 +82,13 @@ export function FeaturedCategories() {
               className="group"
             >
               <Link href={category.href}>
-                <div className={`${category.bgColor} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-transparent hover:border-amber-200 h-full flex flex-col`}>
+                <div
+                  className={`${category.bgColor} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-transparent hover:border-amber-200 h-full flex flex-col`}
+                >
                   {/* Icon */}
-                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${category.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <div
+                    className={`w-16 h-16 rounded-xl bg-gradient-to-r ${category.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  >
                     <category.icon className="h-8 w-8 text-white" />
                   </div>
 
@@ -94,7 +99,7 @@ export function FeaturedCategories() {
                   <h4 className="font-bengali text-slate-700 mb-3 text-lg">
                     {category.nameBn}
                   </h4>
-                  
+
                   <p className="text-slate-600 mb-3 text-sm leading-relaxed flex-1">
                     {category.description}
                   </p>
@@ -126,7 +131,12 @@ export function FeaturedCategories() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Button size="lg" variant="outline" className="border-amber-600 text-amber-600 hover:bg-amber-50" asChild>
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-amber-600 text-amber-600 hover:bg-amber-50"
+            asChild
+          >
             <Link href="/categories">
               View All Categories
               <ArrowRight className="ml-2 h-4 w-4" />
